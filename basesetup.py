@@ -356,8 +356,10 @@ class build_ext(_build_ext):
         # 1. copy to build directory
         # 1. copy to src tree for develop mode
         import re
-        src_tree_output_dir = re.match('build.*(mdtraj.*)', output_dir).group(1)
-
+        try:
+            src_tree_output_dir = re.match('build.*(mdtraj.*)', output_dir).group(1)
+        except AttributeError:
+            src_tree_output_dir = re.match('build.*(msmbuilder.*)', output_dir)
         if not os.path.exists(src_tree_output_dir):
             os.makedirs(src_tree_output_dir)
 
